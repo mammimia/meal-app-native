@@ -19,6 +19,7 @@ function MealsOverview({ route: { params }, navigation }) {
   function renderMealItem({ item }) {
     return (
       <MealItem
+        id={item.id}
         title={item.title}
         imageUrl={item.imageUrl}
         complexity={item.complexity}

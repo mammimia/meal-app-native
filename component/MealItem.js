@@ -1,11 +1,27 @@
 import { Image, StyleSheet, Text, View } from 'react-native';
 import Styles from '../contants/styles';
 import Pressable from './ui/Pressable';
+import { useNavigation } from '@react-navigation/native';
 
-function MealItem({ title, imageUrl, duration, complexity, affordability }) {
+function MealItem({
+  id,
+  title,
+  imageUrl,
+  duration,
+  complexity,
+  affordability
+}) {
+  const navigation = useNavigation();
+
   return (
     <View style={styles.rootContainer}>
-      <Pressable>
+      <Pressable
+        onPress={() =>
+          navigation.navigate('meal-detail', {
+            mealId: id
+          })
+        }
+      >
         <View style={styles.innerContainer}>
           <View>
             <Image style={styles.image} source={{ uri: imageUrl }} />
