@@ -1,4 +1,6 @@
-import { View, Text, StyleSheet, Image } from 'react-native';
+import { Image, ScrollView, StyleSheet, Text, View } from 'react-native';
+import List from '../component/MealDetail/List';
+import Subtitle from '../component/MealDetail/Subtitle';
 import { MEALS } from '../data/dummy-data';
 
 function MealDetail({ route: { params } }) {
@@ -15,27 +17,42 @@ function MealDetail({ route: { params } }) {
   } = meal;
 
   return (
-    <View>
-      <Image source={{ uri: imageUrl }} />
-      <Text>{title}</Text>
+    <ScrollView style={styles.rootContainer}>
+      <Image style={styles.image} source={{ uri: imageUrl }} />
+      <Text style={styles.title}>{title}</Text>
       <View style={styles.details}>
         <Text style={styles.detailItem}>{duration}</Text>
         <Text style={styles.detailItem}>{complexity.toUpperCase()}</Text>
         <Text style={styles.detailItem}>{affordability.toUpperCase()}</Text>
       </View>
-      <Text>Ingredients</Text>
-      {ingredients.map((ingredient) => (
-        <Text key={ingredient}>{ingredient}</Text>
-      ))}
-      <Text>Steps</Text>
-      {steps.map((step) => (
-        <Text key={step}>{step}</Text>
-      ))}
-    </View>
+      <View style={styles.listOuterContainer}>
+        <View style={styles.listContainer}>
+          <Subtitle title="Ingredients" />
+          <List items={ingredients} />
+
+          <Subtitle title="Steps" />
+          <List items={steps} />
+        </View>
+      </View>
+    </ScrollView>
   );
 }
 
 const styles = StyleSheet.create({
+  rootContainer: {
+    marginBottom: 32
+  },
+  image: {
+    width: '100%',
+    height: 350
+  },
+  title: {
+    fontWeight: 'bold',
+    textAlign: 'center',
+    fontSize: 24,
+    margin: 8,
+    color: 'white'
+  },
   details: {
     flexDirection: 'row',
     alignItems: 'center',
@@ -44,7 +61,14 @@ const styles = StyleSheet.create({
   },
   detailItem: {
     marginHorizontal: 4,
-    fontSize: 12
+    fontSize: 12,
+    color: 'white'
+  },
+  listOuterContainer: {
+    alignItems: 'center'
+  },
+  listContainer: {
+    width: '80%'
   }
 });
 
