@@ -5,7 +5,7 @@ import { CATEGORIES as categories } from '../data/dummy-data';
 function CategoriesScreen({ navigation }) {
   function renderCategoryItem({ item }) {
     function pressHandler() {
-      navigation.navigate('Meals Overview', { categoryId: item.id });
+      navigation.navigate('meals-overview', { categoryId: item.id });
     }
 
     return (
