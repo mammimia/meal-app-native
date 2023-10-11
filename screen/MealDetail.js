@@ -1,9 +1,18 @@
-import { Image, ScrollView, StyleSheet, Text, View } from 'react-native';
+import { useLayoutEffect } from 'react';
+import {
+  Button,
+  Image,
+  ScrollView,
+  StyleSheet,
+  Text,
+  View
+} from 'react-native';
 import List from '../component/MealDetail/List';
 import Subtitle from '../component/MealDetail/Subtitle';
 import { MEALS } from '../data/dummy-data';
+import IconButton from '../component/ui/IconButton';
 
-function MealDetail({ route: { params } }) {
+function MealDetail({ route: { params }, navigation }) {
   const { mealId } = params;
   const meal = MEALS.find((meal) => meal.id === mealId);
   const {
@@ -15,6 +24,19 @@ function MealDetail({ route: { params } }) {
     ingredients,
     steps
   } = meal;
+
+  useLayoutEffect(() => {
+    navigation.setOptions({
+      headerRight: () => (
+        <IconButton
+          title="Favorite"
+          onPress={() => {
+            console.log('Mark as favorite!');
+          }}
+        />
+      )
+    });
+  }, [navigation]);
 
   return (
     <ScrollView style={styles.rootContainer}>

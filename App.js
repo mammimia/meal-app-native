@@ -1,10 +1,10 @@
 import { NavigationContainer } from '@react-navigation/native';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { StatusBar } from 'expo-status-bar';
 import { StyleSheet } from 'react-native';
 import CategoriesScreen from './screen/CategoriesScreen';
-import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import MealsOverview from './screen/MealsOverview';
 import MealDetail from './screen/MealDetail';
+import MealsOverview from './screen/MealsOverview';
 
 const Stack = createNativeStackNavigator();
 

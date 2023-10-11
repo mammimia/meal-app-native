@@ -1,11 +1,11 @@
 import { Pressable as NativePressable, StyleSheet } from 'react-native';
 
-function Pressable({ children, onPress }) {
+function Pressable({ children, onPress, fullWidth = true }) {
   return (
     <NativePressable
       android_ripple={{ color: '#ccc' }}
       style={({ pressed }) => [
-        styles.pressable,
+        fullWidth && styles.pressable,
         pressed ? styles.pressed : null
       ]}
       onPress={onPress}
