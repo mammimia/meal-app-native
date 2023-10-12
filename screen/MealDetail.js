@@ -1,13 +1,15 @@
-import { useContext, useEffect, useLayoutEffect } from 'react';
+import { useLayoutEffect } from 'react';
 import { Image, ScrollView, StyleSheet, Text, View } from 'react-native';
+import { useDispatch, useSelector } from 'react-redux';
 import List from '../component/MealDetail/List';
 import Subtitle from '../component/MealDetail/Subtitle';
 import IconButton from '../component/ui/IconButton';
 import { MEALS } from '../data/dummy-data';
-import { FavoritesContext } from '../store/context/FavoritesContext';
+import { toggleFavorite } from '../store/redux/favoritesSlice';
 
 function MealDetail({ route: { params }, navigation }) {
-  const { isFavorite, toggleFavorite } = useContext(FavoritesContext);
+  const favoriteMealIds = useSelector((state) => state.favorites.ids);
+  const dispatch = useDispatch();
 
   const { mealId } = params;
   const meal = MEALS.find((meal) => meal.id === mealId);
@@ -21,13 +23,15 @@ function MealDetail({ route: { params }, navigation }) {
     steps
   } = meal;
 
+  const isFavorite = favoriteMealIds.includes(mealId);
+
   useLayoutEffect(() => {
     navigation.setOptions({
       headerRight: () => (
         <IconButton
           title="Favorite"
-          icon={isFavorite(mealId) ? 'star' : 'star-outline'}
-          onPress={() => toggleFavorite(mealId)}
+          icon={isFavorite ? 'star' : 'star-outline'}
+          onPress={() => dispatch(toggleFavorite(mealId))}
         />
       )
     });

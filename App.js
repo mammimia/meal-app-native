@@ -5,11 +5,12 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { StatusBar } from 'expo-status-bar';
 import { StyleSheet } from 'react-native';
 import 'react-native-gesture-handler';
+import { Provider } from 'react-redux';
 import CategoriesScreen from './screen/CategoriesScreen';
 import Favorites from './screen/Favorites';
 import MealDetail from './screen/MealDetail';
 import MealsOverview from './screen/MealsOverview';
-import FavoritesContextProvider from './store/context/FavoritesContext';
+import store from './store/redux/store';
 
 const Stack = createNativeStackNavigator();
 const Drawer = createDrawerNavigator();
@@ -61,7 +62,7 @@ export default function App() {
   return (
     <>
       <StatusBar style="light" />
-      <FavoritesContextProvider>
+      <Provider store={store}>
         <NavigationContainer>
           <Stack.Navigator
             initialRouteName="meal-categories"
@@ -93,7 +94,7 @@ export default function App() {
             />
           </Stack.Navigator>
         </NavigationContainer>
-      </FavoritesContextProvider>
+      </Provider>
     </>
   );
 }
