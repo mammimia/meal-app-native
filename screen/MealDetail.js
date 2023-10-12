@@ -1,18 +1,14 @@
-import { useLayoutEffect } from 'react';
-import {
-  Button,
-  Image,
-  ScrollView,
-  StyleSheet,
-  Text,
-  View
-} from 'react-native';
+import { useContext, useEffect, useLayoutEffect } from 'react';
+import { Image, ScrollView, StyleSheet, Text, View } from 'react-native';
 import List from '../component/MealDetail/List';
 import Subtitle from '../component/MealDetail/Subtitle';
-import { MEALS } from '../data/dummy-data';
 import IconButton from '../component/ui/IconButton';
+import { MEALS } from '../data/dummy-data';
+import { FavoritesContext } from '../store/context/FavoritesContext';
 
 function MealDetail({ route: { params }, navigation }) {
+  const { isFavorite, toggleFavorite } = useContext(FavoritesContext);
+
   const { mealId } = params;
   const meal = MEALS.find((meal) => meal.id === mealId);
   const {
@@ -30,13 +26,12 @@ function MealDetail({ route: { params }, navigation }) {
       headerRight: () => (
         <IconButton
           title="Favorite"
-          onPress={() => {
-            console.log('Mark as favorite!');
-          }}
+          icon={isFavorite(mealId) ? 'star' : 'star-outline'}
+          onPress={() => toggleFavorite(mealId)}
         />
       )
     });
-  }, [navigation]);
+  }, [navigation, isFavorite, toggleFavorite]);
 
   return (
     <ScrollView style={styles.rootContainer}>
