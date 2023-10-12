@@ -1,6 +1,6 @@
 import { Image, StyleSheet, Text, View } from 'react-native';
-import Styles from '../contants/styles';
-import Pressable from './ui/Pressable';
+import Styles from '../../contants/styles';
+import Pressable from '../ui/Pressable';
 import { useNavigation } from '@react-navigation/native';
 
 function MealItem({
